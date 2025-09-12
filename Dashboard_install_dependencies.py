@@ -605,11 +605,11 @@ def main():
     logging.info("Você pode executar manualmente agora, se quiser.")
 
     # Opcional: tentar iniciar automaticamente
-    try:
-        os.startfile(BASE_DIR / "AtualizarCumminsDashboard.exe")
-        logging.info("Inicialização automática disparada: AtualizarCumminsDashboard.exe")
-    except Exception as e:
-        logging.warning(f"Não foi possível iniciar automaticamente: {e}")
+    #try:
+    #    os.startfile(BASE_DIR / "AtualizarCumminsDashboard.exe")
+    #    logging.info("Inicialização automática disparada: AtualizarCumminsDashboard.exe")
+    #except Exception as e:
+    #    logging.warning(f"Não foi possível iniciar automaticamente: {e}")
 
 if __name__ == "__main__":
     main()
