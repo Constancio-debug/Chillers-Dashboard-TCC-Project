@@ -1,4 +1,4 @@
-# rebuild.py 
+# rebuild.py
 # Rebuild do Atualizar_Dados usando SEMPRE Python 3.13 em venv própria (Windows).
 # Não depende do Python 3.10 instalado.
 
@@ -20,6 +20,9 @@ VENV_DIR = BASE_DIR / ".venv-build-313"
 VENV_PY  = VENV_DIR / "Scripts" / "python.exe"   # Windows
 
 PIP_ENV = dict(os.environ, PIP_DISABLE_PIP_VERSION_CHECK="1")
+
+# === ÍCONE ===
+ICON_FILE = BASE_DIR / "Cummins_logo_vermelho.ico"  # coloque o .ico na mesma pasta
 
 def run(cmd, cwd=None, env=None):
     print(f"\n$ {' '.join(str(c) for c in cmd)}")
@@ -74,6 +77,11 @@ def main():
     ensure_dirs()
     ensure_venv()
 
+    # Verifica ícone (.ico)
+    if not ICON_FILE.exists():
+        fail(f"Ícone não encontrado: {ICON_FILE}  "
+             f"(converta sua imagem 'Cummins_logo_vermelho' para .ico e salve aqui)")
+
     # Ferramentas básicas
     pip_install(["pip", "setuptools", "wheel"])
 
@@ -97,7 +105,7 @@ def main():
         except Exception:
             pass
 
-    # PyInstaller (coleta dados necessários e inclui submódulos do bs4)
+    # PyInstaller (coleta dados necessários e inclui submódulos do bs4) + ÍCONE
     cmd = [
         str(VENV_PY), "-m", "PyInstaller",
         "--noconfirm", "--clean", "--onefile", "--console",
@@ -105,13 +113,14 @@ def main():
         f"--distpath={DIST}",
         f"--workpath={BUILD}",
         f"--specpath={SPEC}",
-        "--paths=.",                                  # raiz do projeto
-        f"--paths={BASE_DIR / '_executores'}",        # módulos internos
+        f"--icon={ICON_FILE}",                      # <<< ÍCONE AQUI
+        "--paths=.",                                # raiz do projeto
+        f"--paths={BASE_DIR / '_executores'}",      # módulos internos
         "--collect-data=certifi",
         "--collect-data=openpyxl",
         "--collect-data=matplotlib",
         "--collect-submodules=httpx",
-        "--collect-submodules=bs4",                   # <— ADICIONADO
+        "--collect-submodules=bs4",
         "--exclude-module=scipy",
         "--exclude-module=sklearn",
         str(SCRIPT),

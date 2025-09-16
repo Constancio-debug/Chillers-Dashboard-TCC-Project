@@ -19,6 +19,9 @@ BUILD = BASE_DIR / "_build"
 SPEC = BASE_DIR
 NAME = "CumminsDashboardInstaller"
 
+# Ícone (deve estar na mesma pasta que este script)
+ICON_FILE = BASE_DIR / "Cummins_logo_preto.ico"
+
 def run(cmd, check=True):
     if isinstance(cmd, str):
         cmd = shlex.split(cmd, posix=False)
@@ -30,6 +33,10 @@ def run(cmd, check=True):
 def main():
     DIST.mkdir(parents=True, exist_ok=True)
     BUILD.mkdir(parents=True, exist_ok=True)
+
+    if not ICON_FILE.exists():
+        print(f"[ERRO] Ícone não encontrado: {ICON_FILE}")
+        sys.exit(1)
 
     # garantir pyinstaller instalado no Python que está rodando este script
     run([sys.executable, "-m", "pip", "install", "--upgrade", "pip", "setuptools", "wheel"], check=True)
@@ -43,6 +50,7 @@ def main():
         f"--distpath={str(DIST)}",
         f"--workpath={str(BUILD)}",
         f"--specpath={str(SPEC)}",
+        f"--icon={str(ICON_FILE)}",   # <<< ÍCONE
         "--paths=.",
         str(SCRIPT)
     ], check=True)

@@ -37,7 +37,7 @@ if __name__ == "__main__":
 	inicio = time.time()
 
 	# Garante toda a estrutura de pastas antes de iniciar logs e execuções
-	garantir_estrutura_pastas()
+	#garantir_estrutura_pastas()
 
 	arquivo_log = inicializar_logger()
 	logging.info(f"Log sendo salvo em: {arquivo_log}\n")
