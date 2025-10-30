@@ -1,3 +1,9 @@
+# === META =========================================================
+# Módulo: utils
+# Versão: v1.0.0
+# Responsabilidade: diretórios, logging, verifs de ambiente, backups
+# ==================================================================
+
 import os
 import re
 import sys
@@ -40,11 +46,12 @@ DADOS_SISTEMA_ELETRICO_DIR = BASE_DIR / "dados_sistema_eletrico_brasil"
 DADOS_INMET_DIR = BASE_DIR / "dados_inmet"
 DADOS_CUMMINS_DIR = BASE_DIR / "dados_cummins"
 TRANSICOES_DIR = DADOS_CUMMINS_DIR / "_transicoes"
+INSTALADORES_DIR = BASE_DIR / "_instaladores"
 
 # (opcional) agrupamento p/ log/inspeção
 PATHS = {
 	"BASE_DIR": BASE_DIR,
-	"executores": EXECUTORES_DIR,
+	#"executores": EXECUTORES_DIR,
 	"logs": LOGS_DIR,
 	"sistema_eletrico": DADOS_SISTEMA_ELETRICO_DIR,
 	"inmet": DADOS_INMET_DIR,
@@ -61,6 +68,11 @@ MESES_INGLES_PARA_PORTUGUES = {
 	"january": "Janeiro", "february": "Fevereiro", "march": "Março", "april": "Abril",
 	"may": "Maio", "june": "Junho", "july": "Julho", "august": "Agosto",
 	"september": "Setembro", "october": "Outubro", "november": "Novembro", "december": "Dezembro"
+}
+
+MES_NUM_PARA_PT = {
+    1: "Janeiro", 2: "Fevereiro", 3: "Março", 4: "Abril", 5: "Maio", 6: "Junho",
+    7: "Julho", 8: "Agosto", 9: "Setembro", 10: "Outubro", 11: "Novembro", 12: "Dezembro"
 }
 
 def traduzir_mes_ingles_para_portugues(mes_ingles: str) -> str:
